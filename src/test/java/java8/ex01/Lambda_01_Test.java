@@ -39,7 +39,7 @@ public class Lambda_01_Test {
         List<Person> personList = Data.buildPersonList(100);
 
         // TODO result ne doit contenir que des personnes adultes (age >= 18)
-        List<Person> result = filter(personList, null);
+        List<Person> result = filter(personList, (x -> x.getAge() >= 18));
 
         assert result.size() == 83;
 
