@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.*;
@@ -112,12 +113,10 @@ public class Stream_01_Test {
 
 		// TODO récupérer la liste de toutes les commandes qui contiennent au moins une
 		// pizza Pépéroni
-		List<Order> result = orders.stream()
-				.filter(o -> {
-					return o.getPizzas().stream()
-							.anyMatch(t -> t.getName().equals("Pépéroni"));
-				}).toList();
-
+		Predicate<Order> containsPeperoni = t -> t.getPizzas().stream().anyMatch(p -> p.getName().equals("Pépéroni"));
+		
+		List<Order> result = orders.stream().filter(containsPeperoni).toList();
+		
 		assertThat(result, hasSize(3));
 	}
 }
